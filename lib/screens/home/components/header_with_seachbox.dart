@@ -32,7 +32,20 @@ class HeaderWithSearchBox extends StatelessWidget {
                 bottomRight: Radius.circular(36),
               ),
             ),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  'Hi Uishopy!',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Colors.white, 
+                      fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Image.asset("assets/images/logo.png")
+              ],
+            ),
           ),
+
         ],
       ),
     );

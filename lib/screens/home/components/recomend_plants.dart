@@ -50,3 +50,21 @@ class RecomendsPlants extends StatelessWidget {
       ),
     );
   }
+}
+
+class RecomendPlantCard extends StatelessWidget {
+  const RecomendPlantCard({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.country,
+    required this.price,
+    required this.press,
+  });
+
+  final String image;
+  final String title;
+  final String country;
+  final int price;
+  final VoidCallback press;
+}

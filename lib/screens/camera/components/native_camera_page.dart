@@ -171,5 +171,44 @@ class _CameraPageState extends State<CameraPage> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: _controller?.value.isInitialized ?? false
+          ? SafeArea(
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTapDown: (details) {
+                      final box = context.findRenderObject() as RenderBox;
+                      final constraints =
+                          box.constraints as BoxConstraints;
+                      _handleTap(details, constraints);
+                    },
+                    child: AspectRatio(
+                      aspectRatio: 3 / 4,
+                      child: CameraPreview(_controller!),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  _buildZoomControls(),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _circleButton(_flasIcon(), _toggleFlash),
+                      _circleButton(Icons.camera, _captureImage, size: 70),
+                      _circleButton(
+                          Icons.flip_camera_android, _switchCamera),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            )
+          : const Center(child: CircularProgressIndicator()),
+    );
+  }
 }
 

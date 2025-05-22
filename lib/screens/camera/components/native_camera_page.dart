@@ -121,4 +121,55 @@ class _CameraPageState extends State<CameraPage> {
       ),
     );
   }
+
+    Widget _buildZoomControls() {
+    if (!_isZoomSupported) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _circleButton(Icons.looks_one, () => _setZoom(1.0), size: 44),
+            const SizedBox(width: 10),
+            if (_maxZoom >= 3.0)
+              _circleButton(Icons.looks_3, () => _setZoom(3.0), size: 44),
+            const SizedBox(width: 10),
+            if (_maxZoom >= 5.0)
+              _circleButton(Icons.looks_5, () => _setZoom(5.0), size: 44),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            const Icon(Icons.zoom_out, color: Colors.white),
+            Expanded(
+              child: Slider(
+                value: _zoom,
+                min: _minZoom,
+                max: _maxZoom,
+                divisions: ((_maxZoom - _minZoom) * 10).toInt(),
+                label: '${_zoom.toStringAsFixed(1)}x',
+                onChanged: (value) => _setZoom(value),
+              ),
+            ),
+            const Icon(Icons.zoom_in, color: Colors.white),
+          ],
+        ),
+        Text(
+          '${_zoom.toStringAsFixed(1)}x',
+          style: const TextStyle(color: Colors.white),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    super.dispose();
+  }
+
 }
+

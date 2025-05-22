@@ -38,3 +38,12 @@ class TitleWithMoreBtn extends StatelessWidget {
     );
   }
 }
+
+class TitleWithCustomUnderline extends StatelessWidget {
+  const TitleWithCustomUnderline({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+}
